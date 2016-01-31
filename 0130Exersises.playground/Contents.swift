@@ -11,9 +11,25 @@ a.write median pivot selection function
 b.swap with first element
 c.run quicksort!
 
+*/
+//func medianPivot(arr:[Int], firstIdx: Int, lastIdx: Int) -> Int {
+//    
+//    let middle = arr[(lastIdx + 1)/2]
+//    
+//    let minOfThree = min(middle, arr[firstIdx], arr[lastIdx])
+//    let maxOfThree = max(middle, arr[firstIdx], arr[lastIdx])
+//    
+//    let sum = middle + arr[firstIdx] + arr[lastIdx]
+//    
+//    let median = sum - minOfThree - maxOfThree
+//
+//    return median
+//    
+//}
 
-func medianPivot(arr:[Int], firstIdx: Int, lastIdx: Int) -> Int {
-    
+
+
+func quickSort(inout arr: [Int], firstIdx: Int, lastIdx: Int) {
     let middle = arr[(lastIdx + 1)/2]
     
     let minOfThree = min(middle, arr[firstIdx], arr[lastIdx])
@@ -21,14 +37,12 @@ func medianPivot(arr:[Int], firstIdx: Int, lastIdx: Int) -> Int {
     
     let sum = middle + arr[firstIdx] + arr[lastIdx]
     
-    let median = sum - minOfThree - maxOfThree
+    var median = sum - minOfThree - maxOfThree
     
-    return median
-}
+    if median != arr[firstIdx] {
+        swap(&median, &arr[firstIdx])
+    }
 
-
-
-func quickSort(inout arr: [Int], firstIdx: Int, lastIdx: Int) {
     // base case
     if firstIdx >= lastIdx { return }
     // partition
@@ -44,12 +58,6 @@ func quickSort(inout arr: [Int]) {
 }
 
 func partition(inout arr: [Int], firstIdx: Int, lastIdx: Int) -> Int {
-    
-    var m = medianPivot(arr, firstIdx: firstIdx, lastIdx: lastIdx)
-    if m != arr[firstIdx] {
-        swap(&m, &arr[firstIdx])
-    }
-    
     // set pivotValue to firstElement
     let pivotValue = arr[firstIdx]
     // set leftMark
@@ -80,11 +88,11 @@ func partition(inout arr: [Int], firstIdx: Int, lastIdx: Int) -> Int {
     return rightMark  // return the splitPoint
 }
 
-var numbers = [22, 59, 38, 93,95, 0, 34, 58, 72, 15]
+var numbers = [22, 59, 38, 93, 95, 0, 34, 58, 72, 15, 8]
 
 quickSort(&numbers)
 
-*/
+
 /*
 2.How many compares (in the worst case) to partition an array of length N ?
 N
@@ -98,7 +106,16 @@ func quickSort(inout arr: [Int], firstIdx: Int, lastIdx: Int) {
     // base case
     if firstIdx >= lastIdx { return }
     else if lastIdx - firstIdx < 10 {
-        insertionSort(&arr, firstIdx: firstIdx, lastIdx: lastIdx)
+        var x, y, key: Int
+        for (x = 0; x < lastIdx + 1; x++) {
+            key = arr[x]
+            for (y = x; y > -1; y--) {
+                if (key < arr[y]) {
+                    arr.removeAtIndex(y + 1)
+                    arr.insert(key, atIndex: y)
+                }
+            }
+        }
     } else
     // partition
     { let splitPoint = partition(&arr, firstIdx: firstIdx, lastIdx: lastIdx)
@@ -146,8 +163,8 @@ func partition(inout arr: [Int], firstIdx: Int, lastIdx: Int) -> Int {
 var numbers = [22, 59, 38, 93,95, 0, 34, 3, 53, 6, 24, 99, 5, 636, 424, 544, 4]
 
 quickSort(&numbers)
-
-
+*/
+/*
 func insertionSort(inout arr:[Int], firstIdx: Int, lastIdx: Int) {
     var x, y, key: Int
     for (x = 0; x < lastIdx + 1; x++) {
@@ -160,8 +177,8 @@ func insertionSort(inout arr:[Int], firstIdx: Int, lastIdx: Int) {
         }
     }
 }
-
 */
+
 
 //func insertionSort(inout numberList:[Int]){
 //    var x, y, key : Int
@@ -188,7 +205,7 @@ this will evaluate as (((2+4)*3)-1)
 
 Output:  17
 
-*/
+
 
 func evaluate(tokens: [String]) -> Int {
     var stack = [String]()
@@ -225,4 +242,4 @@ var arr = ["1", "3", "2", "4", "+", "*", "-"]
 
 evaluate(arr)
 
-
+*/
