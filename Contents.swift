@@ -191,3 +191,39 @@ Output:  17
 
 */
 
+func evaluate(tokens: [String]) -> Int {
+    var stack = [String]()
+    for s in tokens {
+        switch s {
+        case "+":
+            let rightOperand = Int(stack.removeLast())
+            let leftOperand = Int(stack.removeLast())
+            stack.append(String(leftOperand! + rightOperand!))
+            
+        case "-":
+            let rightOperand = Int(stack.removeLast())
+            let leftOperand = Int(stack.removeLast())
+            stack.append(String(rightOperand! - leftOperand!))
+            
+        case "*":
+            let rightOperand = Int(stack.removeLast())
+            let leftOperand = Int(stack.removeLast())
+            stack.append(String(leftOperand! * rightOperand!))
+            
+        case "/":
+            let rightOperand = Int(stack.removeLast())
+            let leftOperand = Int(stack.removeLast())
+            stack.append(String(leftOperand! / rightOperand!))
+        default:
+            stack.append(s)
+        }
+    }
+    return Int(stack.removeLast())!
+}
+
+var arr = ["1", "3", "2", "4", "+", "*", "-"]
+
+evaluate(arr)
+
+
+
